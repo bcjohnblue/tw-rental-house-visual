@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
-import './App.css';
-import json from './assets/tw-rental-data/202105-deduplicated_台北市.json';
+import React from 'react';
+import json from '../assets/tw-rental-data/202105-deduplicated_台北市.json';
 const jsonData = json as Data[];
 
-import PriceAndArea from './components/PriceAndArea';
-import { cleanData, fixPrice } from './helpers';
-import { mapSubRegionToName } from './helpers/mappings';
-import { round } from './utils';
-import { Data, KeyOfData } from './interface';
-
-import Layout from './layout';
-
-/* Router */
-import Router from './router';
+import PriceAndArea from '../components/PriceAndArea';
+import { cleanData } from '../helpers';
+import { mapSubRegionToName } from '../helpers/mappings';
+import { round } from '../utils';
+import { Data } from '../interface';
 
 type Result = Pick<Data, 'monthly_price' | 'floor_ping'> &
   Partial<Data> & { count: number };
@@ -58,22 +52,16 @@ const getData = (data: Data[]) => {
   return result;
 };
 
-function App() {
-  // let data: any[] = [];
+const PriceAndAreaPage: React.FC = () => {
+  let data: any[] = [];
 
-  // const filterData = jsonData.filter((d) => d.property_type === 0);
-  // data = cleanData(filterData);
-  // console.log('d', data);
+  const filterData = jsonData.filter((d) => d.property_type === 0);
+  data = cleanData(filterData);
+  console.log('d', data);
 
-  // data = getData(data);
+  data = getData(data);
 
-  return (
-    <Router />
+  return <PriceAndArea data={data}></PriceAndArea>;
+};
 
-    // <Layout>
-    //   <PriceAndArea data={data}></PriceAndArea>
-    // </Layout>
-  );
-}
-
-export default App;
+export default PriceAndAreaPage;

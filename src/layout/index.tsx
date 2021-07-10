@@ -1,7 +1,15 @@
 import React from 'react';
 
-const Layout = () => {
-  return <></>;
+import Header from './header';
+import Body from './body';
+
+const Layout: React.FC = (props) => {
+  return (
+    <>
+      <Header></Header>
+      <Body>{props.children}</Body>
+    </>
+  );
 };
 
 export default Layout;
